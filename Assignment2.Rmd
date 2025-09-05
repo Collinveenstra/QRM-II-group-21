@@ -102,13 +102,24 @@ For each step, you should provide first all the code you used to answer the ques
 
 ```{r}
 
-#WRITE YOUR CODE HERE
+library(tidyverse)
+
+movies$profit = movies$revenue - movies$budget
+
+movies %>%
+  summarise(mean(profit),
+            median(profit),
+            min(profit),
+            max(profit))
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The mean of the variable profit is 63.121.475 euros. 
+The median of the variable profit is 1.900.000 euros.
+the minimum of the variable profit is -90.000.000 euros
+the maximum of the variable profit is 2.550.965.087 euros
 
 *Step b*
 
