@@ -158,13 +158,19 @@ Write your formulated response here.
 
 ```{r}
 
-#WRITE YOUR CODE HERE
+movies$log_profits = log(movies$profit)
+
+movies %>%
+  summarise(mean_profits = mean(log_profits[is.finite(log_profits)], na.rm = TRUE))
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+All films without profit are converted to -infinity, because the value of log(0) is not defined for any base of the logarithm
+All films with a negative profit are converted to NaN, which means that the result of a mathematical calculation is not a valid number. This is because the logarithm is only defined for positive real numbers.
+
+As a result, when calculating the average logarithm of profits, films with zero or negative profits are excluded from the calculation, as their logarithm values are undefined. The average then only reflects films with positive profits, which distorts the result because loss-making or break-even films are not taken into account.
 
 *Step e*
 
