@@ -82,10 +82,9 @@ We conclude that the data set has 19 variables and 505 subjects. Every subject c
 #WRITE YOUR CODE HERE
 ```
 
-**Your Answer:**
-
-Write your response here.
-
+Nominal: orginal_language 
+Inverval: release_year
+Ratio: vote_count
 
 3. A movie studio wants to know which types of movies give maximal profit. Perform the following steps to provide the movie studio with an analysis which corresponds to their request:
 
@@ -126,14 +125,22 @@ the maximum of the variable profit is 2.550.965.087 euros
 ```{r}
 
 #WRITE YOUR CODE HERE
-Nominal: orginal_language 
-Inverval: release_year
-Ratio: vote_count
+max_profit = max(movies$profit)
+min_profit = min(movies$profit)
+
+movies %>%
+  filter(profit == max_profit) %>%
+  select(title, profit)
+
+movies %>%
+  filter(profit == min_profit) %>%
+  select(title, profit)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The movie with the highest profit is Avatar. Its profit is 2.550.965.087 euros.
+The movie with the lowest profit is Mighty Joe Young. Its profit is -90.000.000 euros. 
 
 *Step c*
 
