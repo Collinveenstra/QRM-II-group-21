@@ -126,7 +126,9 @@ the maximum of the variable profit is 2.550.965.087 euros
 ```{r}
 
 #WRITE YOUR CODE HERE
-
+Nominal: orginal_language 
+Inverval: release_year
+Ratio: vote_count
 ```
 
 **Your Answer:**
@@ -174,7 +176,13 @@ Write your formulated response here.
 ```{r}
 
 #WRITE YOUR CODE HERE
+ggplot(movies, aes(x=runtime, y=vote_average))+
+  geom_point()+
+  geom_smooth(method="lm", se=T)
 
+#het gemiddelde van de average ligt rond de 100min
+#movies met longer runtime are considered better 
+#Movies with a longer runtime
 ```
 
 **Your Answer:**
