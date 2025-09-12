@@ -80,10 +80,12 @@ We conclude that the data set has 19 variables and 505 subjects. Every subject c
 
 ```{r}
 #WRITE YOUR CODE HERE
+str(movies)
 ```
 
+The chr ones are often nominal, the int ones are ratio and the num ones are ratio or interval. The ordinal ones are ordered factors, but not in our data.
 Nominal: orginal_language 
-Inverval: release_year
+Inverval: popularity
 Ratio: vote_count
 
 3. A movie studio wants to know which types of movies give maximal profit. Perform the following steps to provide the movie studio with an analysis which corresponds to their request:
