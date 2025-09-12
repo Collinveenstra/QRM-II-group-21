@@ -270,10 +270,17 @@ Write your formulated response here.
 
 ```{r}
 #WRITE YOUR CODE HERE
+average_revenue<- movies %>% 
+  filter(first_actor=="Bruce Willis") %>% 
+  summarise(average_revenue_Bruce=mean(revenue, na.rm=T))
 
+mean(movies$revenue)
 ```
 
 **Your Answer:**
+The average revenue of the films of Bruce Willis is 116.280.090.
+The average revenue of all the films is 94.815.482.
+The average revenue of the films of Bruce Willis lies above the average revenue of all the films.
 
 Write your formulated response here.
 
