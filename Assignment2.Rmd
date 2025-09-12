@@ -244,13 +244,12 @@ The average lies around the 100 minutes, movies with a longer runtome are consid
 ```{r}
 #WRITE YOUR CODE HERE
 
-
+head(movies$index, n = 10)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
-
+These numbers are the first ten index numbers of the responders of this data set. As you can see, many numbers are missing. This shows that this is an sample and not an entire population. 
 
 2
 
