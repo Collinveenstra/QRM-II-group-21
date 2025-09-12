@@ -4,11 +4,10 @@ subtitle: "Material by Sjoerd van Alten and Klervie Toczé"
 author: "Fill in your group number and names here"
 date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
 output:
-  pdf_document:
-    number_sections: true
   html_document:
     df_print: paged
-
+  pdf_document:
+    number_sections: true
 header-includes:
 - "\\setcounter{section}{-1}"
 - |
@@ -18,7 +17,6 @@ header-includes:
     showtabs = false,
     breaklines,
     commandchars=\\\{\}
-  }
 format:
   html:
     code-overflow: wrap
@@ -233,9 +231,6 @@ ggplot(movies, aes(x=runtime, y=vote_average))+
   geom_point()+
   geom_smooth(method="lm", se=T)
 
-#het gemiddelde van de average ligt rond de 100min
-#movies met longer runtime are considered better 
-#Movies with a longer runtime
 ```
 
 **Your Answer:**
@@ -248,6 +243,7 @@ The average lies around the 100 minutes, movies with a longer runtome are consid
 
 ```{r}
 #WRITE YOUR CODE HERE
+
 
 ```
 
@@ -272,9 +268,8 @@ head(actor_counts, 1)
 ```
 
 **Your Answer:**
-Bruce Willis is the actor who plays in the most movies. He plays in 7 movies.
 
-Write your formulated response here.
+Bruce Willis is the actor who plays in the most movies. He plays in 7 movies.
 
 *step b*
 
@@ -288,11 +283,10 @@ mean(movies$revenue)
 ```
 
 **Your Answer:**
+
 The average revenue of the films of Bruce Willis is 116.280.090.
 The average revenue of all the films is 94.815.482.
 The average revenue of the films of Bruce Willis lies above the average revenue of all the films.
-
-Write your formulated response here.
 
 *step c*
 
