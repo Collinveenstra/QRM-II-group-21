@@ -137,6 +137,7 @@ movies %>%
 movies %>%
   filter(profit == min_profit) %>%
   select(title, profit)
+
 ```
 
 **Your Answer:**
@@ -149,12 +150,40 @@ The movie with the lowest profit is Mighty Joe Young. Its profit is -90.000.000 
 ```{r}
 
 #WRITE YOUR CODE HERE
+boxplot(movies$profit, 
+        main="Variable Profit",
+        ylab="Profit",
+        xlab="Movies")
+
+Q1 = quantile(movies$profit, 0.25)
+Q2 = quantile(movies$profit, 0.50)
+Q3 = quantile(movies$profit, 0.75)
+Q4 = max(movies$profit)
+
+Q1
+Q2
+Q3
+Q4
+
+boxplot(movies$profit,
+        main='Variable Profit',
+        ylab="Profit",
+        xlab="Movies",
+        outline = FALSE)
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+We created two boxplots. The first code is for all variable data in the dataset. The resulting boxplot is very compact with many outliers. In the second code, which was written to create the boxplot, the outliers were removed. We did this using the line #outline = FALSE#. This provides a more specific view of the distribution of variable profit.
+
+We calculated the quartiles based on all the data, including the outliers. These are the quartiles:
+Q1 = 0
+Q2 = 1.900.000
+Q3 = 60.514.050
+Q4 = 2.550.965.087
+
+This data tells us that the movie industry is a high-risk, high-reward business, where the majority of films earn little, and profitability is driven by a small fraction of massive blockbusters.
 
 *Step d*
 
@@ -206,6 +235,11 @@ Write your formulated response here.
 
 # Week 2 
 1 Is your dataset movies1.tsv the full population, or is it a sample of a larger population? If the latter, how would you describe the full population? \textbf{[4 points]}
+
+```{r}
+#WRITE YOUR CODE HERE
+
+```
 
 **Your Answer:**
 
