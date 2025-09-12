@@ -256,10 +256,13 @@ c.  How trustworthy do you consider your conclusion to answer 2b? Use the term "
 
 ```{r}
 #WRITE YOUR CODE HERE
+actor_counts <- sort(table(movies$first_actor), decreasing = TRUE)
+head(actor_counts, 1)
 
 ```
 
 **Your Answer:**
+Bruce Willis is the actor who plays in the most movies. He plays in 7 movies.
 
 Write your formulated response here.
 
