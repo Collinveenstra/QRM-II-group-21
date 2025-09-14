@@ -190,7 +190,10 @@ This data tells us that the movie industry is a high-risk, high-reward business,
 movies$log_profits = log(movies$profit)
 
 movies %>%
-  summarise(mean_profits = mean(log_profits[is.finite(log_profits)], na.rm = TRUE))
+  summarise(mean_profits = mean(movies$log_profits))
+
+movies %>%
+  summarise(mean_profits2 = mean(log_profits[is.finite(log_profits)], na.rm = TRUE))
 
 ```
 
@@ -199,7 +202,7 @@ movies %>%
 All films without profit are converted to -infinity, because the value of log(0) is not defined for any base of the logarithm
 All films with a negative profit are converted to NaN, which means that the result of a mathematical calculation is not a valid number. This is because the logarithm is only defined for positive real numbers.
 
-As a result, when calculating the average logarithm of profits, films with zero or negative profits are excluded from the calculation, as their logarithm values are undefined. The average then only reflects films with positive profits, which distorts the result because loss-making or break-even films are not taken into account.
+As a result, when calculating the average logarithm of profits, it returns NaN. To obtain an average, films with zero or negative profits should be excluded from the calculation, as their logarithm values are undefined. The average then only reflects films with positive profits. The only problem is that this distorts the result because loss-making or break-even films are not taken into account.
 
 *Step e*
 
@@ -235,7 +238,7 @@ ggplot(movies, aes(x=runtime, y=vote_average))+
 
 **Your Answer:**
 
-The average lies around the 100 minutes, movies with a longer runtome are considered better.
+The average lies around the 100 minutes, movies with a longer runtime are considered better.
 
 
 # Week 2 
@@ -274,7 +277,7 @@ Bruce Willis is the actor who plays in the most movies. He plays in 7 movies.
 
 ```{r}
 #WRITE YOUR CODE HERE
-average_revenue<- movies %>% 
+movies %>% 
   filter(first_actor=="Bruce Willis") %>% 
   summarise(average_revenue_Bruce=mean(revenue, na.rm=T))
 
