@@ -321,21 +321,27 @@ var(movies$profit)
 **Your Answer:**
 
 The variance of of the variable profits (in millions) is 30463.13
+
 *step b*
 
 ```{r}
 #WRITE YOUR CODE HERE
 
+movies_sample <- movies[sample(nrow(movies), 25), ]
+var(movies_sample$profit)
+
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The variance of profits in the sample of 25 movies is 12,621,480,000,000,000 , which is much higher than the variance of the full dataset. This indicates that the sample shows considerably more variation in movie profits compared to the entire dataset. A likely explanation is that the sample happened to include several outliers, which increases the spread.
 
 *step c*
 
 ```{r}
 #WRITE YOUR CODE HERE
+
+library(dplyr)
 
 ```
 
