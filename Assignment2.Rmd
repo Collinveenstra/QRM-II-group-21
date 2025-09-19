@@ -459,8 +459,8 @@ cat("test statistic:", round(test_statistic, 2), "\n")
 
 #critical value
 alpha <- 0.05
-lower <- qchisq(alpha / 2, df = n2 - 1)
-upper <- qchisq(1 - alpha / 2, df = n2 - 1)
+lower <- qchisq(alpha / 2, df = n - 1)
+upper <- qchisq(1 - alpha / 2, df = n - 1)
 
 #print
 cat("Critical values:\n")
