@@ -455,13 +455,26 @@ Our conclusion is that we reject the null hypothesis.
 
 ```{r}
 #WRITE YOUR CODE HERE
+ggplot(movies, aes(x = revenue))+
+  geom_histogram()+
+  labs(title = "Histogram of revenue",
+       y = "frequency")
 
+ggplot(movies, aes(sample = revenue)) +
+  stat_qq() +
+  stat_qq_line(color = "purple") +
+  labs(title = "Normal QQ plot",
+       x = "Theoretical Quantiles",
+       y = "Sample Quantilies") +
+  theme_minimal()
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The assumption is that the distribution of the revenue is not normal. The histogram is not normal, because left side is really high and the right side is nothing. 
+The QQ plot is not normal, because not everything is close to the line. The right side is higher than the left side. 
+So the conclusion is that the assumption about the revenue does hold.
 
 3. There is an argument going on in the movie studio. *Bob* claims that they should make higher-quality movies, as this will bring in more profits. *Chantal* disagrees. She tells Bob that mediocre movies bring in the most profits. You are asked to advise on who is right.
 
