@@ -4,11 +4,10 @@ subtitle: "Material by Sjoerd van Alten and Klervie Toczé"
 author: "Fill in your group number and names here"
 date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
 output:
-  pdf_document:
-    number_sections: true
   html_document:
     df_print: paged
-
+  pdf_document:
+    number_sections: true
 header-includes:
 - "\\setcounter{section}{-1}"
 - |
@@ -18,7 +17,6 @@ header-includes:
     showtabs = false,
     breaklines,
     commandchars=\\\{\}
-  }
 format:
   html:
     code-overflow: wrap
@@ -80,12 +78,20 @@ We conclude that the data set has 19 variables and 505 subjects. Every subject c
 
 ```{r}
 #WRITE YOUR CODE HERE
+str(movies)
 ```
 
+<<<<<<< HEAD
 **Your Answer:**
 
 Write your response here.
 
+=======
+The chr ones are often nominal, the int ones are ratio and the num ones are ratio or interval. The ordinal ones are ordered factors, but not in our data.
+Nominal: orginal_language 
+Inverval: popularity
+Ratio: vote_count
+>>>>>>> 59f06596706bf4662bf2b10f3549f7f0b92cd20d
 
 3. A movie studio wants to know which types of movies give maximal profit. Perform the following steps to provide the movie studio with an analysis which corresponds to their request:
 
@@ -126,9 +132,23 @@ the maximum of the variable profit is 2.550.965.087 euros
 ```{r}
 
 #WRITE YOUR CODE HERE
+<<<<<<< HEAD
 Nominal: orginal_language 
 Inverval: release_year
 Ratio: vote_count
+=======
+max_profit = max(movies$profit)
+min_profit = min(movies$profit)
+
+movies %>%
+  filter(profit == max_profit) %>%
+  select(title, profit)
+
+movies %>%
+  filter(profit == min_profit) %>%
+  select(title, profit)
+
+>>>>>>> 59f06596706bf4662bf2b10f3549f7f0b92cd20d
 ```
 
 **Your Answer:**
@@ -140,36 +160,90 @@ Write your formulated response here.
 ```{r}
 
 #WRITE YOUR CODE HERE
+boxplot(movies$profit, 
+        main="Variable Profit",
+        ylab="Profit",
+        xlab="Movies")
+
+Q1 = quantile(movies$profit, 0.25)
+Q2 = quantile(movies$profit, 0.50)
+Q3 = quantile(movies$profit, 0.75)
+Q4 = max(movies$profit)
+
+Q1
+Q2
+Q3
+Q4
+
+boxplot(movies$profit,
+        main='Variable Profit',
+        ylab="Profit",
+        xlab="Movies",
+        outline = FALSE)
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+We created two boxplots. The first code is for all variable data in the dataset. The resulting boxplot is very compact with many outliers. In the second code, which was written to create the boxplot, the outliers were removed. We did this using the line #outline = FALSE#. This provides a more specific view of the distribution of variable profit.
+
+We calculated the quartiles based on all the data, including the outliers. These are the quartiles:
+Q1 = 0
+Q2 = 1.900.000
+Q3 = 60.514.050
+Q4 = 2.550.965.087
+
+This data tells us that the movie industry is a high-risk, high-reward business, where the majority of films earn little, and profitability is driven by a small fraction of massive blockbusters.
 
 *Step d*
 
 ```{r}
 
+<<<<<<< HEAD
 #WRITE YOUR CODE HERE
+=======
+movies$log_profits = log(movies$profit)
+
+movies %>%
+  summarise(mean_profits = mean(movies$log_profits))
+
+movies %>%
+  summarise(mean_profits2 = mean(log_profits[is.finite(log_profits)], na.rm = TRUE))
+>>>>>>> 59f06596706bf4662bf2b10f3549f7f0b92cd20d
 
 ```
 
 **Your Answer:**
 
+<<<<<<< HEAD
 Write your formulated response here.
+=======
+All films without profit are converted to -infinity, because the value of log(0) is not defined for any base of the logarithm
+All films with a negative profit are converted to NaN, which means that the result of a mathematical calculation is not a valid number. This is because the logarithm is only defined for positive real numbers.
+
+As a result, when calculating the average logarithm of profits, it returns NaN. To obtain an average, films with zero or negative profits should be excluded from the calculation, as their logarithm values are undefined. The average then only reflects films with positive profits. The only problem is that this distorts the result because loss-making or break-even films are not taken into account.
+>>>>>>> 59f06596706bf4662bf2b10f3549f7f0b92cd20d
 
 *Step e*
 
 ```{r}
 
 #WRITE YOUR CODE HERE
+movies$log_profits[movies$log_profits<=0]<- NA
+movies$log_profits[is.nan(movies$log_profits)] <- NA
+
+mean(movies$log_profits, na.rm = TRUE)
+
+boxplot(movies$log_profits,
+        main = "Log of Profits",
+        xlab = "Movies",
+        ylab = "Log of Profits")
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+Because the values now lie within a more manageable scale, the boxplot provides more information than in c. Additionally, all negative values have been removed from the data, so only positive values are visible in the boxplot. However, there are still outliers, which can be seen as the points below the boxplot.
 
 *Step f*
 
@@ -180,22 +254,25 @@ ggplot(movies, aes(x=runtime, y=vote_average))+
   geom_point()+
   geom_smooth(method="lm", se=T)
 
-#het gemiddelde van de average ligt rond de 100min
-#movies met longer runtime are considered better 
-#Movies with a longer runtime
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The average lies around the 100 minutes, movies with a longer runtime are considered better.
+
 
 # Week 2 
 1 Is your dataset movies1.tsv the full population, or is it a sample of a larger population? If the latter, how would you describe the full population? \textbf{[4 points]}
 
+```{r}
+#WRITE YOUR CODE HERE
+
+head(movies$index, n = 10)
+```
+
 **Your Answer:**
 
-Write your formulated response here.
-
+These numbers are the first ten index numbers of the responders of this data set. As you can see, many numbers are missing. This shows that this is an sample and not an entire population. 
 
 2
 
@@ -207,23 +284,31 @@ c.  How trustworthy do you consider your conclusion to answer 2b? Use the term "
 
 ```{r}
 #WRITE YOUR CODE HERE
+actor_counts <- sort(table(movies$first_actor), decreasing = TRUE)
+head(actor_counts, 1)
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+Bruce Willis is the actor who plays in the most movies. He plays in 7 movies.
 
 *step b*
 
 ```{r}
 #WRITE YOUR CODE HERE
+movies %>% 
+  filter(first_actor=="Bruce Willis") %>% 
+  summarise(average_revenue_Bruce=mean(revenue, na.rm=T))
 
+mean(movies$revenue)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The average revenue of the films of Bruce Willis is 116.280.090.
+The average revenue of all the films is 94.815.482.
+The average revenue of the films of Bruce Willis lies above the average revenue of all the films.
 
 *step c*
 
@@ -233,8 +318,8 @@ Write your formulated response here.
 ```
 
 **Your Answer:**
+Our conclusion in answer 2b is reasonably trustworthy because, according to the law of large numbers, the larger the number of trials, the closer the observed outcomes should be to the expected probability. Since our conclusion was based on 505 repetitions, random variation should be minimized. But there is always a slight deviation. 
 
-Write your formulated response here.
 
 3 For this question, you will assume that your data set is the full population. 
 
@@ -249,27 +334,34 @@ e. In your opinion, is a sample of 25 movies sufficient to get a reliable estima
 ```{r}
 #WRITE YOUR CODE HERE
 
+movies$profit = movies$profit/1000000
+var(movies$profit)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The variance of of the variable profits (in millions) is 30463.13
 
 *step b*
 
 ```{r}
 #WRITE YOUR CODE HERE
 
+movies_sample <- movies[sample(nrow(movies), 25), ]
+var(movies_sample$profit)
+
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The variance of profits in the sample of 25 movies is 12,621,480,000,000,000 , which is much higher than the variance of the full dataset. This indicates that the sample shows considerably more variation in movie profits compared to the entire dataset. A likely explanation is that the sample happened to include several outliers, which increases the spread.
 
 *step c*
 
 ```{r}
 #WRITE YOUR CODE HERE
+
+library(dplyr)
 
 ```
 
