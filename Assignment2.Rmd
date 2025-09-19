@@ -293,9 +293,7 @@ The average revenue of the films of Bruce Willis lies above the average revenue 
 **Your Answer:**
 Our conclusion in answer 2b is reasonably trustworthy because, according to the law of large numbers, the larger the number of trials, the closer the observed outcomes should be to the expected probability. Since our conclusion was based on 505 repetitions, random variation should be minimized. But there is always a slight deviation. 
 
-
 3 For this question, you will assume that your data set is the full population. 
-
 a. Recode profits such that it is expressed in millions. What is the variance of the variable profits (in millions) in your data set? \textbf{[2 points]}
 b. Create a new data set, called movies_sample. Make sure that it is a random sample of your data set of 25 movies. What is the variance of profits in this random sample? How does it compare to the variance of profits in 2a? \textbf{[2 points]}
 c. In a for loop, create 100 different samples of 25 movies, as in b, and estimate the variance within each sample. Save the variance of each sample in a vector called sample_vars. So the first position of the vector would have the variance of the first sample, the second position the variance of the second sample, etc. Print the start of this vector. \textbf{[2 points]}
@@ -308,7 +306,7 @@ e. In your opinion, is a sample of 25 movies sufficient to get a reliable estima
 #WRITE YOUR CODE HERE
 
 movies$profit = movies$profit/1000000
-var(movies$profit)
+variance = var(movies$profit)
 ```
 
 **Your Answer:**
@@ -320,14 +318,16 @@ The variance of of the variable profits (in millions) is 30463.13
 ```{r}
 #WRITE YOUR CODE HERE
 
+set.seed(123)
+
 movies_sample <- movies[sample(nrow(movies), 25), ]
-var(movies_sample$profit)
+variance_sample = var(movies_sample$profit)
 
 ```
 
 **Your Answer:**
 
-The variance of profits in the sample of 25 movies is 12,621,480,000,000,000 , which is much higher than the variance of the full dataset. This indicates that the sample shows considerably more variation in movie profits compared to the entire dataset. A likely explanation is that the sample happened to include several outliers, which increases the spread.
+The variance of profits in the sample of 25 movies is 18.803 million, which is much lower than the variance of the full dataset. When we computed a sample multiple times, we saw a lot of changes in the variance. Sometimes there were no outliers which made the variance very low, but sometimes the variance was higher than the population variance. Normally we would expect the population variance to be lower, because it it a more precise variable. But in this case the sample chooses movies with less/no outliers, causing the variable to be lower.   
 
 *step c*
 
@@ -336,22 +336,50 @@ The variance of profits in the sample of 25 movies is 12,621,480,000,000,000 , w
 
 library(dplyr)
 
+set.seed(123)
+
+sample_vars <- c()
+for (i in 1:100) {
+  sample_data <- sample(movies$profit, size = 25, replace = TRUE)
+  sample_vars[i] <- var(sample_data)
+}
+
+print(sample_vars)
+
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+Above are the profit variances of 100 different samples.
 
 *step d*
 
 ```{r}
 #WRITE YOUR CODE HERE
+dfsample_vars = as.data.frame(sample_vars)
+
+ggplot(dfsample_vars, aes(x = sample_vars)) +
+  geom_histogram(bins = 50) +
+  labs(title = "Histogram of sample variances", x = "Sample variances", y = "Frequency")
+
+dfsample_vars %>%
+  summarise(mean_sample = mean(sample_vars),
+            sd_sample = sd(sample_vars))
+
+library(e1071)
+
+skewness_sample = skewness(sample_vars, na.rm=T)
+kurtosis_sample = kurtosis(sample_vars, na.rm=T)
+print(skewness_sample)
+print(kurtosis_sample)
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The mean of the sample variances is 22739,86.
+The standard deviation of the sample variances is 36935,63.
+The shape of the distribution is right-skewed, because of the positive skewness value. The kurtosis value is very higher, because of the heavy outlier.  
 
 *step e*
 
