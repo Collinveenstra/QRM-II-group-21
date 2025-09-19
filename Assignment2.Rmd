@@ -394,7 +394,6 @@ It could be if it is the case that the movie profits are normally distributed. B
 For the next part of the assignment, assume that the movies in your data frame are a random sample of a larger population of movies. 
 
 1
-
 a. Create a new data set that only includes movies that are of the genre "Thriller". For these thriller movies, give a 99 percent confidence interval for the variable *runtime*. Interpret the result. \textbf{[2 points]}
 b. Now, assume that the variance of *runtime* amongst thriller movies in your data is exactly the same as the variance of *runtime* in the population. Under this assumption, give a 99 percent confidence interval for the variable *runtime* among thriller movies. Interpret the result. Is you confidence interval wider or less wide than the one you found under question 1a? Why is that the case? \textbf{[2 points]}
 
