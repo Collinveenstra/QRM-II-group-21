@@ -127,11 +127,6 @@ the maximum of the variable profit is 2.550.965.087 euros
 ```{r}
 
 #WRITE YOUR CODE HERE
-<<<<<<< HEAD
-Nominal: orginal_language 
-Inverval: release_year
-Ratio: vote_count
-=======
 max_profit = max(movies$profit)
 min_profit = min(movies$profit)
 
@@ -143,12 +138,12 @@ movies %>%
   filter(profit == min_profit) %>%
   select(title, profit)
 
->>>>>>> 59f06596706bf4662bf2b10f3549f7f0b92cd20d
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The movie with the highest profit is Avatar, reporting a profit of 2.550.965.087.
+The movie with the lowest profit/highest loss is Mighty Joe Young, reporting a profit of -90.000.000
 
 *Step c*
 
@@ -193,10 +188,8 @@ This data tells us that the movie industry is a high-risk, high-reward business,
 *Step d*
 
 ```{r}
-
-<<<<<<< HEAD
 #WRITE YOUR CODE HERE
-=======
+
 movies$log_profits = log(movies$profit)
 
 movies %>%
@@ -204,20 +197,15 @@ movies %>%
 
 movies %>%
   summarise(mean_profits2 = mean(log_profits[is.finite(log_profits)], na.rm = TRUE))
->>>>>>> 59f06596706bf4662bf2b10f3549f7f0b92cd20d
 
 ```
 
 **Your Answer:**
 
-<<<<<<< HEAD
-Write your formulated response here.
-=======
 All films without profit are converted to -infinity, because the value of log(0) is not defined for any base of the logarithm
 All films with a negative profit are converted to NaN, which means that the result of a mathematical calculation is not a valid number. This is because the logarithm is only defined for positive real numbers.
 
 As a result, when calculating the average logarithm of profits, it returns NaN. To obtain an average, films with zero or negative profits should be excluded from the calculation, as their logarithm values are undefined. The average then only reflects films with positive profits. The only problem is that this distorts the result because loss-making or break-even films are not taken into account.
->>>>>>> 59f06596706bf4662bf2b10f3549f7f0b92cd20d
 
 *Step e*
 
@@ -397,7 +385,16 @@ b. Now, assume that the variance of *runtime* amongst thriller movies in your da
 ```{r}
 #WRITE YOUR CODE HERE
 
+thriller_movies <- subset(movies, grepl("Thriller", genre, ignore.case = FALSE))
 
+mean_runtime = mean(thriller_movies$runtime, na.rm = TRUE)
+sd_runtime = sd(thriller_movies$runtime, na.rm = TRUE)
+n = sum(!is.na(thriller_movies$runtime))
+
+z = qnorm(0.995)
+
+error = z*sd_runtime/sqrt(n)
+UP = 
 ```
 
 **Your Answer:**
