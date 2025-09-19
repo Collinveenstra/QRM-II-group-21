@@ -195,6 +195,10 @@ This data tells us that the movie industry is a high-risk, high-reward business,
 
 ```{r}
 #WRITE YOUR CODE HERE
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1c3c358464c2f11eb8c8ec60bc127561a2391d89
 movies$log_profits = log(movies$profit)
 
 movies %>%
@@ -206,7 +210,10 @@ movies %>%
 ```
 
 **Your Answer:**
+<<<<<<< HEAD
 Write your formulated response here.
+=======
+>>>>>>> 1c3c358464c2f11eb8c8ec60bc127561a2391d89
 
 All films without profit are converted to -infinity, because the value of log(0) is not defined for any base of the logarithm
 All films with a negative profit are converted to NaN, which means that the result of a mathematical calculation is not a valid number. This is because the logarithm is only defined for positive real numbers.
