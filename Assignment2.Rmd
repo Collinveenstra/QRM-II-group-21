@@ -413,7 +413,8 @@ b. For the validity of your test in 2a, what assumption about the distribution o
 
 ```{r}
 #WRITE YOUR CODE HERE
-s2 = var(thriller_movies$runtime)
+s2 = var(movies$runtime, na.rm = TRUE)
+n = sum(!is.na(movies$runtime))
 
 # Hypothesized variance
 sigma2 <- 500
@@ -426,8 +427,8 @@ cat("test statistic:", round(test_statistic, 2), "\n")
 
 #critical value
 alpha <- 0.05
-lower <- qchisq(alpha / 2, df = n - 1)
-upper <- qchisq(1 - alpha / 2, df = n - 1)
+lower <- qchisq(alpha / 2, df = n2 - 1)
+upper <- qchisq(1 - alpha / 2, df = n2 - 1)
 
 #print
 cat("Critical values:\n")
