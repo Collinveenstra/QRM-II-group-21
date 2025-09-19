@@ -423,13 +423,42 @@ b. For the validity of your test in 2a, what assumption about the distribution o
 
 ```{r}
 #WRITE YOUR CODE HERE
+s2 = var(thriller_movies$runtime)
 
+# Hypothesized variance
+sigma2 <- 500
+
+# Test statistic
+test_statistic <- (n - 1) * s2 / sigma2
+
+# Print test statistic
+cat("test statistic:", round(test_statistic, 2), "\n")
+
+#critical value
+alpha <- 0.05
+lower <- qchisq(alpha / 2, df = n - 1)
+upper <- qchisq(1 - alpha / 2, df = n - 1)
+
+#print
+cat("Critical values:\n")
+cat("Lower:", round(lower, 2), "\n")
+cat("Upper:", round(upper, 2), "\n")
+
+
+#compare test statistic with the critical
+if (chi_sq < lower || chi_sq > upper) {
+  cat("Reject the null hypothesis.\n")
+} else {
+  cat("Do not reject the null hypothesis.\n")
+}
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The null hypothesis is 500. The alternative hypothesis is not 500. 
+We computed the test statistic and the critical values.
+Our conclusion is that we reject the null hypothesis.
 
 *step b*
 
