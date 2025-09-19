@@ -532,13 +532,25 @@ With this code you create the new variable and a histogram.
 
 ```{r}
 #WRITE YOUR CODE HERE
+profit_movies <- movies %>%
+  group_by(vote_average_rounded) %>%
+  summarise(profit_mean = mean(profit, na.rm = TRUE))
 
+
+ggplot(profit_movies, aes(x = vote_average_rounded, y = profit_mean)) +
+  geom_point(size = 3) +
+  geom_line() +
+  labs(
+    title = "Average Profit by Rounded Vote Average",
+    x = "Rounded Vote Average",
+    y = "Average Profit"
+  ) 
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The profits are the highest by a rating of 8.
 
 *step c*
 
