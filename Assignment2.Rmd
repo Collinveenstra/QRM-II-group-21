@@ -81,10 +81,7 @@ We conclude that the data set has 19 variables and 505 subjects. Every subject c
 str(movies)
 ```
 
-<<<<<<< HEAD
-=======
 **Your Answer:**
->>>>>>> dd2771446bc81456ef2d03a50215d44339de521a
 
 The chr ones are often nominal, the int ones are ratio and the num ones are ratio or interval. The ordinal ones are ordered factors, but not in our data.
 Nominal: orginal_language 
@@ -130,10 +127,6 @@ the maximum of the variable profit is 2.550.965.087 euros
 ```{r}
 
 #WRITE YOUR CODE HERE
-Nominal: orginal_language 
-Inverval: release_year
-Ratio: vote_count
-
 max_profit = max(movies$profit)
 min_profit = min(movies$profit)
 
@@ -149,7 +142,8 @@ movies %>%
 
 **Your Answer:**
 
-Write your formulated response here.
+The movie with the highest profit is Avatar, reporting a profit of 2.550.965.087.
+The movie with the lowest profit/highest loss is Mighty Joe Young, reporting a profit of -90.000.000
 
 *Step c*
 
@@ -195,10 +189,7 @@ This data tells us that the movie industry is a high-risk, high-reward business,
 
 ```{r}
 #WRITE YOUR CODE HERE
-<<<<<<< HEAD
-=======
 
->>>>>>> 1c3c358464c2f11eb8c8ec60bc127561a2391d89
 movies$log_profits = log(movies$profit)
 
 movies %>%
@@ -210,10 +201,6 @@ movies %>%
 ```
 
 **Your Answer:**
-<<<<<<< HEAD
-Write your formulated response here.
-=======
->>>>>>> 1c3c358464c2f11eb8c8ec60bc127561a2391d89
 
 All films without profit are converted to -infinity, because the value of log(0) is not defined for any base of the logarithm
 All films with a negative profit are converted to NaN, which means that the result of a mathematical calculation is not a valid number. This is because the logarithm is only defined for positive real numbers.
@@ -307,6 +294,11 @@ The average revenue of all the films is 94.815.482.
 The average revenue of the films of Bruce Willis lies above the average revenue of all the films.
 
 *step c*
+
+```{r}
+#WRITE YOUR CODE HERE
+
+```
 
 **Your Answer:**
 Our conclusion in answer 2b is reasonably trustworthy because, according to the law of large numbers, the larger the number of trials, the closer the observed outcomes should be to the expected probability. Since our conclusion was based on 505 repetitions, random variation should be minimized. But there is always a slight deviation. 
