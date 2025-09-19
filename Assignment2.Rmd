@@ -561,7 +561,26 @@ The profits are the highest by a rating of 8.
 
 ```{r}
 #WRITE YOUR CODE HERE
+profit_by_year <- movies %>%
+  group_by(release_year) %>%
+  summarise(
+    profit_mean = mean(profit, na.rm = TRUE),
+    sd = sd(profit, na.rm = TRUE),
+    n = n(),
+    se = sd / sqrt(n),
+    ci_lower = profit_mean - 1.96 * se,
+    ci_upper = profit_mean + 1.96 * se
+  )
 
+ggplot(profit_by_year, aes(x = release_year, y = profit_mean)) +
+  geom_point(size = 2, color = "darkblue") +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.3, color = "darkblue") +
+  labs(
+    title = "Average Profit per Year (95% Confidence Interval)",
+    x = "Release Year",
+    y = "Average Profit"
+  ) +
+  theme_minimal()
 
 ```
 
