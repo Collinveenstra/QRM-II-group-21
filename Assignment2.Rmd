@@ -411,20 +411,30 @@ print(conf_interval)
 
 **Your Answer:**
 
-We are 99% confident that the true mean runtime of all thriller movies in the population falls between 99.9 and 111 minutes. 
+We are 99% confident that the true mean runtime of all thriller movies in the population falls between 99.9 and 111.0 minutes. 
 
 *step b*
 
 ```{r}
 #WRITE YOUR CODE HERE
 
+mean_runtime = mean(thriller_movies$runtime)
+sd_runtime = sd(thriller_movies$runtime)
+n = length(thriller_movies$runtime)
 
+sd_population = sd_runtime
+
+z = qnorm(0.995)
+error = z*(sd_population/sqrt(n))
+LOW = mean_runtime - error
+UP = mean_runtime + error
+
+print(c(LOW, UP))
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
-
+We are 99% confident that the true mean runtime of thriller movies in the entire population falls between 100.1 and 110.8 minutes. 
 
 2
 
