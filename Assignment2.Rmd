@@ -155,15 +155,11 @@ boxplot(movies$profit,
         ylab="Profit",
         xlab="Movies")
 
-Q1 = quantile(movies$profit, 0.25)
-Q2 = quantile(movies$profit, 0.50)
-Q3 = quantile(movies$profit, 0.75)
-Q4 = max(movies$profit)
-
-Q1
-Q2
-Q3
-Q4
+movies %>%
+  summarise(Q1 = quantile(movies$profit, 0.25),
+            Q2 = quantile(movies$profit, 0.50),
+            Q3 = quantile(movies$profit, 0.75),
+            Q4 = max(movies$profit))
 
 boxplot(movies$profit,
         main='Variable Profit',
@@ -226,7 +222,7 @@ boxplot(movies$log_profits,
 
 **Your Answer:**
 
-Because the values now lie within a more manageable scale, the boxplot provides more information than in c. Additionally, all negative values have been removed from the data, so only positive values are visible in the boxplot. However, there are still outliers, which can be seen as the points below the boxplot.
+Because the values now lie within a more manageable scale, the boxplot provides more information than in c. Additionally, all negative values have been removed from the data, so only positive values are visible in the boxplot. However, there are still outliers, which can be seen as the points below and above the boxplot.
 
 *Step f*
 
@@ -241,8 +237,7 @@ ggplot(movies, aes(x=runtime, y=vote_average))+
 
 **Your Answer:**
 
-The average lies around the 100 minutes, movies with a longer runtime are considered better.
-
+The average lies around the 100 minutes, movies with a longer runtime are considered better. Movies with a longer runtime might have a better production behind it. This makes the movie better overall.  
 
 # Week 2 
 1 Is your dataset movies1.tsv the full population, or is it a sample of a larger population? If the latter, how would you describe the full population? \textbf{[4 points]}
