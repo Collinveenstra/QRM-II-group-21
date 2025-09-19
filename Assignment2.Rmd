@@ -81,10 +81,7 @@ We conclude that the data set has 19 variables and 505 subjects. Every subject c
 str(movies)
 ```
 
-<<<<<<< HEAD
-=======
 **Your Answer:**
->>>>>>> dd2771446bc81456ef2d03a50215d44339de521a
 
 The chr ones are often nominal, the int ones are ratio and the num ones are ratio or interval. The ordinal ones are ordered factors, but not in our data.
 Nominal: orginal_language 
@@ -130,10 +127,6 @@ the maximum of the variable profit is 2.550.965.087 euros
 ```{r}
 
 #WRITE YOUR CODE HERE
-Nominal: orginal_language 
-Inverval: release_year
-Ratio: vote_count
-
 max_profit = max(movies$profit)
 min_profit = min(movies$profit)
 
@@ -149,7 +142,8 @@ movies %>%
 
 **Your Answer:**
 
-Write your formulated response here.
+The movie with the highest profit is Avatar, reporting a profit of 2.550.965.087.
+The movie with the lowest profit/highest loss is Mighty Joe Young, reporting a profit of -90.000.000
 
 *Step c*
 
@@ -161,15 +155,11 @@ boxplot(movies$profit,
         ylab="Profit",
         xlab="Movies")
 
-Q1 = quantile(movies$profit, 0.25)
-Q2 = quantile(movies$profit, 0.50)
-Q3 = quantile(movies$profit, 0.75)
-Q4 = max(movies$profit)
-
-Q1
-Q2
-Q3
-Q4
+movies %>%
+  summarise(Q1 = quantile(movies$profit, 0.25),
+            Q2 = quantile(movies$profit, 0.50),
+            Q3 = quantile(movies$profit, 0.75),
+            Q4 = max(movies$profit))
 
 boxplot(movies$profit,
         main='Variable Profit',
@@ -207,10 +197,6 @@ movies %>%
 ```
 
 **Your Answer:**
-<<<<<<< HEAD
-Write your formulated response here.
-=======
->>>>>>> 1c3c358464c2f11eb8c8ec60bc127561a2391d89
 
 All films without profit are converted to -infinity, because the value of log(0) is not defined for any base of the logarithm
 All films with a negative profit are converted to NaN, which means that the result of a mathematical calculation is not a valid number. This is because the logarithm is only defined for positive real numbers.
@@ -236,7 +222,7 @@ boxplot(movies$log_profits,
 
 **Your Answer:**
 
-Because the values now lie within a more manageable scale, the boxplot provides more information than in c. Additionally, all negative values have been removed from the data, so only positive values are visible in the boxplot. However, there are still outliers, which can be seen as the points below the boxplot.
+Because the values now lie within a more manageable scale, the boxplot provides more information than in c. Additionally, all negative values have been removed from the data, so only positive values are visible in the boxplot. However, there are still outliers, which can be seen as the points below and above the boxplot.
 
 *Step f*
 
@@ -251,8 +237,7 @@ ggplot(movies, aes(x=runtime, y=vote_average))+
 
 **Your Answer:**
 
-The average lies around the 100 minutes, movies with a longer runtime are considered better.
-
+The average lies around the 100 minutes, movies with a longer runtime are considered better. Movies with a longer runtime might have a better production behind it. This makes the movie better overall.  
 
 # Week 2 
 1 Is your dataset movies1.tsv the full population, or is it a sample of a larger population? If the latter, how would you describe the full population? \textbf{[4 points]}
@@ -261,14 +246,14 @@ The average lies around the 100 minutes, movies with a longer runtime are consid
 #WRITE YOUR CODE HERE
 
 head(movies$index, n = 10)
+nrow(movies)
 ```
 
 **Your Answer:**
 
-These numbers are the first ten index numbers of the responders of this data set. As you can see, many numbers are missing. This shows that this is an sample and not an entire population. 
+These numbers are the first ten index numbers of the responders of this data set. As you can see, many numbers are missing. This shows that this is an sample and not an entire population. There are 505 subjects (movies), while the index is showing there are many more.   
 
 2
-
 a.  For which actor in your data set do you observe the most movies? \textbf{[2 points]} 
 b.  What is the average revenue of the movie in which this actor plays and does the revenue lie above or below the revenue of an average movie according to your data set? \textbf{[2 points]}  
 c.  How trustworthy do you consider your conclusion to answer 2b? Use the term "law of large numbers" in your explanation. \textbf{[2 points]} 
@@ -304,6 +289,11 @@ The average revenue of all the films is 94.815.482.
 The average revenue of the films of Bruce Willis lies above the average revenue of all the films.
 
 *step c*
+
+```{r}
+#WRITE YOUR CODE HERE
+
+```
 
 **Your Answer:**
 Our conclusion in answer 2b is reasonably trustworthy because, according to the law of large numbers, the larger the number of trials, the closer the observed outcomes should be to the expected probability. Since our conclusion was based on 505 repetitions, random variation should be minimized. But there is always a slight deviation. 
