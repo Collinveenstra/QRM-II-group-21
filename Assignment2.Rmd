@@ -81,7 +81,10 @@ We conclude that the data set has 19 variables and 505 subjects. Every subject c
 str(movies)
 ```
 
+<<<<<<< HEAD
+=======
 **Your Answer:**
+>>>>>>> dd2771446bc81456ef2d03a50215d44339de521a
 
 The chr ones are often nominal, the int ones are ratio and the num ones are ratio or interval. The ordinal ones are ordered factors, but not in our data.
 Nominal: orginal_language 
@@ -388,7 +391,16 @@ b. Now, assume that the variance of *runtime* amongst thriller movies in your da
 ```{r}
 #WRITE YOUR CODE HERE
 
+thriller_movies <- subset(movies, grepl("Thriller", genre, ignore.case = FALSE))
 
+mean_runtime = mean(thriller_movies$runtime, na.rm = TRUE)
+sd_runtime = sd(thriller_movies$runtime, na.rm = TRUE)
+n = sum(!is.na(thriller_movies$runtime))
+
+z = qnorm(0.995)
+
+error = z*sd_runtime/sqrt(n)
+UP = 
 ```
 
 **Your Answer:**
