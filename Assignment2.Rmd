@@ -404,19 +404,14 @@ b. Now, assume that the variance of *runtime* amongst thriller movies in your da
 
 thriller_movies <- subset(movies, grepl("Thriller", genre, ignore.case = FALSE))
 
-mean_runtime = mean(thriller_movies$runtime, na.rm = TRUE)
-sd_runtime = sd(thriller_movies$runtime, na.rm = TRUE)
-n = sum(!is.na(thriller_movies$runtime))
-
-z = qnorm(0.995)
-
-error = z*sd_runtime/sqrt(n)
-UP = 
+t_result = t.test(thriller_movies$runtime, conf.level = 0.99)
+conf_interval = t_result$conf.int
+print(conf_interval)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+We are 99% confident that the true mean runtime of all thriller movies in the population falls between 99.9 and 111 minutes. 
 
 *step b*
 
