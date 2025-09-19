@@ -385,7 +385,7 @@ The shape of the distribution is right-skewed, because of the positive skewness 
 
 **Your Answer:**
 
-Write your formulated response here.
+It could be if it is the case that the movie profits are normally distributed. But in our calculation the data is highly skewed and has an extreme outlier leading to a less reliable estimate.
 
 **Your answer here**
 
