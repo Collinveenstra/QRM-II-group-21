@@ -568,13 +568,13 @@ profit_by_year <- movies %>%
     sd = sd(profit, na.rm = TRUE),
     n = n(),
     se = sd / sqrt(n),
-    ci_lower = profit_mean - 1.96 * se,
-    ci_upper = profit_mean + 1.96 * se
+    lower = profit_mean - 1.96 * se,
+    upper = profit_mean + 1.96 * se
   )
 
 ggplot(profit_by_year, aes(x = release_year, y = profit_mean)) +
   geom_point(size = 2, color = "darkblue") +
-  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.3, color = "darkblue") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.3, color = "darkblue") +
   labs(
     title = "Average Profit per Year (95% Confidence Interval)",
     x = "Release Year",
@@ -586,14 +586,13 @@ ggplot(profit_by_year, aes(x = release_year, y = profit_mean)) +
 
 **Your Answer:**
 
-Write your formulated response here.
+Above you see the scatterplot created, with the 95% confident interval. 
 
 *step d*
 
 **Your Answer:**
 
-Write your formulated response here.
-
+In the scatterplot you can see that movies with a longer run time
 # Week 4 
 
 1. There is another argument going on in the movie studio. *Bob* claims that production budgets are getting out of hand, and that the studio should focus on making cheaper movies. *Chantal* disagrees. She tells Bob that ``Every dollar we spend on movie production is more than offset by the increase in movie profits''. 
