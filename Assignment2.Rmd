@@ -487,13 +487,19 @@ d. Write an advice to settle the argument between Bob and Chantal. \textbf{[4 po
 
 ```{r}
 #WRITE YOUR CODE HERE
+movies$vote_average_rounded <- floor(movies$vote_average)
 
+ggplot(movies, aes(x = vote_average_rounded)) +
+  geom_histogram(binwidth = 1) +
+  labs(title = "Histogram of Rounded Vote Averages",
+       x = "Vote Average",
+       y = "Frequency") 
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+With this code you create the new variable and a histogram.
 
 *step b*
 
