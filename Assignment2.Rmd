@@ -290,11 +290,6 @@ The average revenue of the films of Bruce Willis lies above the average revenue 
 
 *step c*
 
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
 **Your Answer:**
 Our conclusion in answer 2b is reasonably trustworthy because, according to the law of large numbers, the larger the number of trials, the closer the observed outcomes should be to the expected probability. Since our conclusion was based on 505 repetitions, random variation should be minimized. But there is always a slight deviation. 
 
