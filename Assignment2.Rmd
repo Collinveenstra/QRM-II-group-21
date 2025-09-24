@@ -410,7 +410,7 @@ print(conf_interval)
 
 **Your Answer:**
 
-We are 99% confident that the true mean runtime of all thriller movies in the population falls between 99.9 and 111.0 minutes. 
+We are 99% confident that the true mean runtime of all thriller movies in the population falls between 99.94 and 111.01 minutes. 
 
 *step b*
 
@@ -423,20 +423,20 @@ n = length(thriller_movies$runtime)
 
 sd_population = sd_runtime
 
-z = qnorm(0.995)
-error = z*(sd_population/sqrt(n))
-LOW = mean_runtime - error
-UP = mean_runtime + error
+alpha <- 0.01
+z = qnorm(1-alpha/2)
+error_margin = z*(sd_population/sqrt(n))
+LOW = mean_runtime - error_margin
+UP = mean_runtime + error_margin
 
 print(c(LOW, UP))
 ```
 
 **Your Answer:**
 
-We are 99% confident that the true mean runtime of thriller movies in the entire population falls between 100.1 and 110.8 minutes. 
+We are 99% confident that the true mean runtime of thriller movies in the entire population falls between 100.11 and 110.85 minutes. 
 
 2
-
 a. Using an appropriate five-step procedure, set up a test for the null hypothesis that the variance of runtime equals $500$. Clearly state your null hypothesis, alternative hypothesis your test statistic, your critical value, and your conclusion. \textbf{[2 points]}
 b. For the validity of your test in 2a, what assumption about the distribution of revenue needs to hold? Make an appropriate plot to test this assumption. What do you conclude? \textbf{[2 points]}
 
@@ -457,7 +457,7 @@ test_statistic <- (n - 1) * s2 / sigma2
 cat("test statistic:", round(test_statistic, 2), "\n")
 
 #critical value
-alpha <- 0.05
+alpha2 <- 0.05
 lower <- qchisq(alpha / 2, df = n - 1)
 upper <- qchisq(1 - alpha / 2, df = n - 1)
 
@@ -478,7 +478,7 @@ if (test_statistic < lower || test_statistic > upper) {
 
 **Your Answer:**
 
-The null hypothesis is 500. The alternative hypothesis is not 500. 
+The null hypothesis (H0) is equal to 500. The alternative hypothesis (H1) is NOT equal to 500. 
 We computed the test statistic and the critical values.
 Our conclusion is that we do not reject the null hypothesis.
 
@@ -486,12 +486,12 @@ Our conclusion is that we do not reject the null hypothesis.
 
 ```{r}
 #WRITE YOUR CODE HERE
-ggplot(movies, aes(x = revenue))+
+ggplot(movies, aes(x = runtime))+
   geom_histogram()+
-  labs(title = "Histogram of revenue",
+  labs(title = "Histogram of runtime",
        y = "frequency")
 
-ggplot(movies, aes(sample = revenue)) +
+ggplot(movies, aes(sample = runtime)) +
   stat_qq() +
   stat_qq_line(color = "purple") +
   labs(title = "Normal QQ plot",
@@ -503,9 +503,11 @@ ggplot(movies, aes(sample = revenue)) +
 
 **Your Answer:**
 
-The assumption is that the distribution of the revenue is not normal. The histogram is not normal, because left side is really high and the right side is nothing. 
-The QQ plot is not normal, because not everything is close to the line. The right side is higher than the left side. 
-So the conclusion is that the assumption about the revenue does hold.
+*I think there is a typo in question 2b, because for 2a we are doing hypothesis testing for the runtime. It would be weird to reason about assumptions of revenue, which has nothing to do with the runtime.
+
+The assumption for the chi-square variance test is that the runtime variable is normally distributed. The histogram of runtime shows a concentration around 90–120 minutes, but the distribution is slightly right-skewed and has a few extreme outliers at both short and very long runtimes.
+The Q-Q plot also shows clear deviations from the diagonal line, especially in the tails: very short and very long movies fall far from what would be expected under normality 
+Together, these plots indicate that runtime is not perfectly normally distributed. Therefore the normality assumption does not hold, and the result of the variance test should be interpreted with caution.
 
 3. There is an argument going on in the movie studio. *Bob* claims that they should make higher-quality movies, as this will bring in more profits. *Chantal* disagrees. She tells Bob that mediocre movies bring in the most profits. You are asked to advise on who is right.
 
@@ -522,10 +524,10 @@ movies$vote_average_rounded <- floor(movies$vote_average)
 
 ggplot(movies, aes(x = vote_average_rounded)) +
   geom_histogram(binwidth = 1) +
+  scale_x_continuous(breaks = seq(0,8, by = 1)) +
   labs(title = "Histogram of Rounded Vote Averages",
        x = "Vote Average",
        y = "Frequency") 
-
 ```
 
 **Your Answer:**
@@ -547,9 +549,8 @@ ggplot(profit_movies, aes(x = vote_average_rounded, y = profit_mean)) +
   labs(
     title = "Average Profit by Rounded Vote Average",
     x = "Rounded Vote Average",
-    y = "Average Profit"
+    y = "Average Profit (in millions)"
   ) 
-
 ```
 
 **Your Answer:**
@@ -560,6 +561,7 @@ The profits are the highest by a rating of 8.
 
 ```{r}
 #WRITE YOUR CODE HERE
+
 profit_by_year <- movies %>%
   group_by(release_year) %>%
   summarise(
@@ -580,220 +582,15 @@ ggplot(profit_by_year, aes(x = release_year, y = profit_mean)) +
     y = "Average Profit"
   ) +
   theme_minimal()
-
 ```
 
 **Your Answer:**
 
-Above you see the scatterplot created, with the 95% confident interval. 
+Above you see the scatterplot created, with the 95% confident interval. We are not sure if it is a typo that we now have to compare the mean profit to the release year, because it is not relevant information for our dilemma. 
 
 *step d*
 
 **Your Answer:**
 
-In the scatterplot you can see that movies with a longer run time
-# Week 4 
-
-1. There is another argument going on in the movie studio. *Bob* claims that production budgets are getting out of hand, and that the studio should focus on making cheaper movies. *Chantal* disagrees. She tells Bob that ``Every dollar we spend on movie production is more than offset by the increase in movie profits''. 
-
-a. Set up a regression model to test Chantal's claim, and estimate it. That is, estimate: $$\text{Profits}_i=\beta_0+\beta_1 \text{Budget}_i +\varepsilon_i.$$ Print a summary of your estimated model. \textbf{[2 points]}
-b. What is the estimated value of $\beta_1$ and how do you interpet it? \textbf{[2 points]}
-c. Test for the null hypothesis that $\beta_1 \geq 0$. Report the p-value and state your conclusion. \textbf{[2 points]} 
-d. Next, estimate the model $$\text{Log Profits}_i=\beta_0+\beta_1 \text{Log Budget}_i +\varepsilon_i.$$ When creating the variables Log Profits and Log Budget, make sure that movies with a Revenue or Budget of zero are assigned the value "NA". Print a summary of your estimated model \textbf{[2 points]}
-e. What is the estimated value of $\beta_1$ and how do you interpet it? \textbf{[2 points]}
-f. Which model has better fit? The level-level model or the log-log model? Explain. \textbf{[2 points]}
-g. Who do you think is correct? Bob or Chantal? What would you advise the movie studio to do? \textbf{[2 points]}
-
-*step a*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step b*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step c*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step d*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step e*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step f*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step g*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-2
-
-a. Make a plot with a 95% confidence interval with the mean log of budget on the y-axis, and whether the first actor of the movie is male or female on the x-axis. What do you conclude? \textbf{[2 points]} 
-b. Estimate the following simple OLS model: $log(budget)_i=\beta_0+\beta_1 \text(FirstActorMale)_i + \varepsilon_i.$ Is the estimated coefficient for $\beta_1$ significantly different from zero? How do you interpret its estimate, and how does this relate to your conclusion in 2a? \textbf{[2 points]}
-c. Now, have a close look at your data frame. Can you find any instances of male first actors who are wrongly labeled as being female, or vice versa? What would such mislabelling mean for the coefficient you estimated under 2b? \textbf{[2 points]}
-
-*step a*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step b*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step c*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-# Week 5
-
-a. Create a plot of the mean profits by month of release. Do you see any indication that month of release matters to the profits of the movie? \textbf{[2 points]}
-b. Estimate an OLS model which has as dependent variable the log of profits of a movie, and as independent variable the log of budget, a dummy for whether the movie was released in english or not, and a linear term for the month of release. Show a summary of the resulting model and interpret each coefficient. \textbf{[4 points]}
-c. Test for the hypothesis that the coefficient that belongs to month of release is zero. \textbf{[2 points]} 
-d. Based on your plot in a.) do you consider the choice that month of release enters the model linearly under b.) reasonable? Estimate a specification that allows for a more flexible curve. In this new specification, test for the null hypothesis that month of release does not impact profits. This might require testing multiple terms at once. \textbf{[4 points]}
-
-e. One executive at the studio wants to time the release of the movie to a specific month of the year such that they can maximize revenue. Based on your model under d.), What would you advise the movie studio regarding the timing of the release of the movie?  \textbf{[2 points]}
-
-The movie studio that you work at is releasing a new movie in 2026. It will be an English-spoken Thriller movie with a budget of 40,000,0000. 
-
-f. Estimate a model that is able to predict the revenue of this movie. Give its predicted revenue and include a 99% prediction interval.  \textbf{[6 points]}
-
-
-*step a*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step b*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step c*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step d*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step e*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
-**Your Answer:**
-
-Write your formulated response here.
-
-*step f*
-
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
+The plot shows that average profits rise with higher vote averages, peaking at ratings around 8. This supports Bob’s claim that higher-quality movies tend to be more profitable, rather than Chantal’s view that mediocre films bring in the most profit. The yearly profit plot shows high variation and wide confidence intervals, suggesting that other factors like market conditions and economic environment also matter. Still, overall the evidence favors Bob, primarily based on the scatterplot of question b.
 
