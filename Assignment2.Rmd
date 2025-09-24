@@ -249,7 +249,7 @@ nrow(movies)
 
 **Your Answer:**
 
-These numbers are the first ten index numbers of the responders of this data set. As you can see, many numbers are missing. This shows that this is an sample and not an entire population. There are 505 subjects (movies), while the index is showing there are many more.   
+These numbers are the first ten index numbers of the responders of this data set. As you can see, many numbers are missing. This shows that this is an sample and not an entire population. There are 505 subjects (movies), while the index is showing there are many more. Furthermore, you can logically reason that more than 505 films have been made worldwide.   
 
 2
 a.  For which actor in your data set do you observe the most movies? \textbf{[2 points]} 
@@ -275,9 +275,10 @@ Bruce Willis is the actor who plays in the most movies. He plays in 7 movies.
 #WRITE YOUR CODE HERE
 movies %>% 
   filter(first_actor=="Bruce Willis") %>% 
-  summarise(average_revenue_Bruce=mean(revenue, na.rm=T))
+  summarise(avg_revenue_Bruce=mean(revenue, na.rm=T))
 
-mean(movies$revenue)
+movies %>%
+  summarise(avg_revenue_data = mean(movies$revenue))
 ```
 
 **Your Answer:**
@@ -289,7 +290,7 @@ The average revenue of the films of Bruce Willis lies above the average revenue 
 *step c*
 
 **Your Answer:**
-Our conclusion in answer 2b is reasonably trustworthy because, according to the law of large numbers, the larger the number of trials, the closer the observed outcomes should be to the expected probability. Since our conclusion was based on 505 repetitions, random variation should be minimized. But there is always a slight deviation. 
+The conclusion in 2b is not very trustworthy, because it is based only on the subset of movies with Bruce Willis. According to the law of large numbers, the reliability of an average increases as the sample size grows. Since the number of Bruce Willis films in the dataset is much smaller (7) than the total number of films (505), his average revenue may not accurately reflect the true expectation and could be influenced by a few exceptionally high-grossing films.
 
 3 For this question, you will assume that your data set is the full population. 
 a. Recode profits such that it is expressed in millions. What is the variance of the variable profits (in millions) in your data set? \textbf{[2 points]}
@@ -309,7 +310,7 @@ variance = var(movies$profit)
 
 **Your Answer:**
 
-The variance of of the variable profits (in millions) is 30463.13
+The variance of of the variable profits (in millions) is 30463,13
 
 *step b*
 
@@ -325,7 +326,7 @@ variance_sample = var(movies_sample$profit)
 
 **Your Answer:**
 
-The variance of profits in the sample of 25 movies is 18.803 million, which is much lower than the variance of the full dataset. When we computed a sample multiple times, we saw a lot of changes in the variance. Sometimes there were no outliers which made the variance very low, but sometimes the variance was higher than the population variance. Normally we would expect the population variance to be lower, because it it a more precise variable. But in this case the sample chooses movies with less/no outliers, causing the variable to be lower.   
+The variance of profits in the sample of 25 movies is 5156 million, which is much lower than the variance of the full dataset. When we computed a sample multiple times, we saw a lot of changes in the variance. Sometimes there were no outliers which made the variance very low, but sometimes the variance was higher than the population variance. Normally we would expect the population variance to be lower, because it it a more precise variable. But in this case the sample chooses movies with less/no outliers, causing the variable to be lower.   
 
 *step c*
 
@@ -377,13 +378,13 @@ print(kurtosis_sample)
 
 The mean of the sample variances is 22739,86.
 The standard deviation of the sample variances is 36935,63.
-The shape of the distribution is right-skewed, because of the positive skewness value. The kurtosis value is very higher, because of the heavy outlier.  
+The shape of the distribution is right-skewed, because of the positive skewness value. The kurtosis value is very high, because of the heavy outlier.  
 
 *step e*
 
 **Your Answer:**
 
-It could be if it is the case that the movie profits are normally distributed. But in our calculation the data is highly skewed and has an extreme outlier leading to a less reliable estimate.
+A sample of 25 movies is relatively small for estimating the population variance of profits. The variance is very sensitive to extreme values, and as seen in the histogram, movie profits are highly skewed with large outliers. According to the law of large numbers, larger samples are needed for the sample variance to converge to the true population variance.
 
 **Your answer here**
 
