@@ -83,10 +83,10 @@ str(movies)
 
 **Your Answer:**
 
-The chr ones are often nominal, the int ones are ratio and the num ones are ratio or interval. The ordinal ones are ordered factors, but not in our data.
-Nominal: orginal_language 
-Inverval: popularity
-Ratio: vote_count
+Nominal: present, for example genre and title 
+Ordinal: not present
+Inverval: present, for example release_year
+Ratio: present, for example budget and revenue
 
 3. A movie studio wants to know which types of movies give maximal profit. Perform the following steps to provide the movie studio with an analysis which corresponds to their request:
 
@@ -162,18 +162,17 @@ movies %>%
             Q4 = max(movies$profit))
 
 boxplot(movies$profit,
-        main='Variable Profit',
+        main='Boxplot of Variable Profit',
         ylab="Profit",
         xlab="Movies",
         outline = FALSE)
-
 ```
 
 **Your Answer:**
 
 We created two boxplots. The first code is for all variable data in the dataset. The resulting boxplot is very compact with many outliers. In the second code, which was written to create the boxplot, the outliers were removed. We did this using the line #outline = FALSE#. This provides a more specific view of the distribution of variable profit.
 
-We calculated the quartiles based on all the data, including the outliers. These are the quartiles:
+We calculated the quantiles based on all the data, including the outliers. These are the quantiles:
 Q1 = 0
 Q2 = 1.900.000
 Q3 = 60.514.050
@@ -214,15 +213,14 @@ movies$log_profits[is.nan(movies$log_profits)] <- NA
 mean(movies$log_profits, na.rm = TRUE)
 
 boxplot(movies$log_profits,
-        main = "Log of Profits",
+        main = "Boxplot of Variable Log(Profits)",
         xlab = "Movies",
         ylab = "Log of Profits")
 
 ```
 
 **Your Answer:**
-
-Because the values now lie within a more manageable scale, the boxplot provides more information than in c. Additionally, all negative values have been removed from the data, so only positive values are visible in the boxplot. However, there are still outliers, which can be seen as the points below and above the boxplot.
+The log scale compresses extremely large profits and expands smaller ones, which places the values on a more manageable scale. Therefore the boxplot provides more information than in c. Additionally, all negative values have been removed from the data, so only positive values are visible in the boxplot. However, there are still outliers, which can be seen as the points below and above the boxplot.
 
 *Step f*
 
@@ -237,7 +235,7 @@ ggplot(movies, aes(x=runtime, y=vote_average))+
 
 **Your Answer:**
 
-The average lies around the 100 minutes, movies with a longer runtime are considered better. Movies with a longer runtime might have a better production behind it. This makes the movie better overall.  
+The average lies around the 100 minutes, movies with a longer runtime are considered better. This suggests that viewers may perceive longer movies as more developed or higher quality.
 
 # Week 2 
 1 Is your dataset movies1.tsv the full population, or is it a sample of a larger population? If the latter, how would you describe the full population? \textbf{[4 points]}
