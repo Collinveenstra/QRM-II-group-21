@@ -1,13 +1,13 @@
 ---
 title: "QRM II Graded Assignment (2), Period 1 2025"
 subtitle: "Material by Sjoerd van Alten and Klervie Toczé"
-author: "Fill in your group number and names here"
+author: "Group 21 - Carlijn Calori, Julia Koeleman, Marit Springer & Collin Veenstra"
 date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
 output:
-  html_document:
-    df_print: paged
   pdf_document:
     number_sections: true
+  html_document:
+    df_print: paged
 header-includes:
 - "\\setcounter{section}{-1}"
 - |
