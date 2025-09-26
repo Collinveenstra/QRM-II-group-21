@@ -4,10 +4,17 @@ subtitle: "Material by Sjoerd van Alten and Klervie Toczé"
 author: "Group 21 - Carlijn Calori, Julia Koeleman, Marit Springer & Collin Veenstra"
 date:  "`r format(Sys.Date(), '%d-%m-%Y')`"
 output:
+
+author: "Group 21 - Carlijn Calori, Julia Koeleman, Marit Springer & Collin Veenstra"
+date: "`r format(Sys.Date(), '%d-%m-%Y')`"
+output:
+  word_document: default
   pdf_document:
     number_sections: true
   html_document:
     df_print: paged
+
+subtitle: Material by Sjoerd van Alten and Klervie Toczé
 header-includes:
 - "\\setcounter{section}{-1}"
 - |
