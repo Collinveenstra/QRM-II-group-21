@@ -152,6 +152,8 @@ This plot shows that the average log-budget of films with a male first actor is 
 
 ```{r}
 #WRITE YOUR CODE HERE
+model <- lm(log_budget ~ movies$first_actor_gender == "Male", data = movies)
+summary(model)
 
 ```
 
