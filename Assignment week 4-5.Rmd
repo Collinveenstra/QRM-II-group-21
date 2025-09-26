@@ -152,14 +152,17 @@ This plot shows that the average log-budget of films with a male first actor is 
 
 ```{r}
 #WRITE YOUR CODE HERE
-model <- lm(log_budget ~ movies$first_actor_gender == "Male", data = movies)
+model <- lm(log_budget ~ movies$first_actor_gender, data = movies,)
 summary(model)
+
+percent_effect <- (exp(0.3232)-1)*100
+print(percent_effect)
 
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The estimated coefficient for β1 is 0.3232 with a p-value of 0.194, so it is not significantly different from zero. This is because 0.194 > 0.05. This means we cannot conclude that movies with a male first actor have different budgets than those with a female first actor. The positive estimate would suggest about a 38% higher budget for male leads, but since it’s not significant, this difference is not reliable. This matches your conclusion in 2a: There is no significant difference in mean log-budgets between male and female first actors.
 
 *step c*
 
