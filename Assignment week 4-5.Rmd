@@ -137,7 +137,7 @@ library (Hmisc)
 movies <- subset(movies, budget >0)
 movies$log_budget <- log(movies$budget)
 
-ggplot(movies, aes(x = first_actor_gender, y = log_profits)) +
+ggplot(movies, aes(x = first_actor_gender, y = log_budget)) +
   stat_summary(fun = mean, geom = "point", size = 3) +
   stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +
   labs(x = "Gender of First Actor", y = "Log of Budget",
