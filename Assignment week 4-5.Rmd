@@ -127,7 +127,18 @@ c. Now, have a close look at your data frame. Can you find any instances of male
 
 ```{r}
 #WRITE YOUR CODE HERE
+install.packages("Hmisc")
+library (tidyverse)
+library (Hmisc)
 
+movies <- subset(movies, budget >0)
+movies$log_budget <- log(movies$budget)
+
+ggplot(movies, aes(x = first_actor_gender, y = log_profits)) +
+  stat_summary(fun = mean, geom = "point", size = 3) +
+  stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +
+  labs(x = "Gender of First Actor", y = "Log of Budget",
+       title = "Mean Log of Budget by First Actor Gender with 95% Confidence Interval")
 ```
 
 **Your Answer:**
