@@ -52,18 +52,18 @@ summary(model)
 
 **Your Answer:**
 
-The budget estimate is greater than 1, so each additional dollar spent on production, is an increase of more than a dollar in profits.
+You can see the summary up here. 
 
 *step b*
 
 ```{r}
 #WRITE YOUR CODE HERE
-
+summary(model)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The estimated value of Beta 1 is 3.677. This means that each additional dollar spent on production, is an increase of 3.677 dollar in profits. 
 
 *step c*
 
