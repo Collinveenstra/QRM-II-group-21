@@ -45,11 +45,14 @@ g. Who do you think is correct? Bob or Chantal? What would you advise the movie 
 #WRITE YOUR CODE HERE
 movies <- read.table("movies1.tsv", header=TRUE)
 
+model <- lm(revenue ~ budget, data = movies)
+summary(model)
+
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+The budget estimate is greater than 1, so each additional dollar spent on production, is an increase of more than a dollar in profits.
 
 *step b*
 
