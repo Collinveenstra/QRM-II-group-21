@@ -43,6 +43,7 @@ g. Who do you think is correct? Bob or Chantal? What would you advise the movie 
 
 ```{r}
 #WRITE YOUR CODE HERE
+movies <- read.table("movies1.tsv", header=TRUE)
 
 ```
 
