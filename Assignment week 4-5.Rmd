@@ -173,7 +173,7 @@ The estimated coefficient for β1 is 0.3232 with a p-value of 0.194, so it is no
 
 **Your Answer:**
 
-Write your formulated response here.
+We have detected some wrongly labeled actors. Some examples are: Cameron Diaz, Jackie Chan and Blake Lively. Because some actors are wrongly labeled as male or female, the data contains errors. This makes the estimated coefficient for β1 smaller than it should be, pushing it closer to zero. As a result, any real difference in budgets between male and female leads becomes harder to see.
 
 # Week 5
 
