@@ -143,7 +143,7 @@ ggplot(movies, aes(x = first_actor_gender, y = log_profits)) +
 
 **Your Answer:**
 
-Write your formulated response here.
+This plot shows that the average log-budget of films with a male first actor is slightly higher than that of films with a female first actor, but there is a large overlap of confidence intervals. This means there is no clear statistical difference between the groups. For the NA group, the uncertainty is so large that no conclusion can be drawn.
 
 *step b*
 
