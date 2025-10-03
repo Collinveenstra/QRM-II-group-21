@@ -259,8 +259,6 @@ For each month later in the year, the revenue is 1.1% higher if the rest is cons
 
 ```{r}
 #WRITE YOUR CODE HERE
-model<- lm(log_revenue~log_budget)
-
 model<- lm(LogRevenue~LogBudget + english+release_month, data=movies)
 summary(model)
 ```
