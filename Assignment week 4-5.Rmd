@@ -254,12 +254,14 @@ For each month later in the year, the revenue is 1.1% higher if the rest is cons
 
 ```{r}
 #WRITE YOUR CODE HERE
-model<- lm(log_revenue~log_budget)
+model<- lm(log_revenue~log_budget + english+release_month, data=movies)
+summary(model)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+If you look at the release month, the t value is 0.791 and the p value is 0.430.
+The p value is greater than 0.05, so we fail to reject the null hypothesus at the 5% significance level.
 
 *step d*
 
