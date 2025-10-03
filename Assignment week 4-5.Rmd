@@ -125,7 +125,7 @@ The level–level model fits the data better since it has a higher R^2:
 Level R^2 = 0.5961
 Log R^2 = 0.3201
 
-The level–level model clearly has the best statistical fit. This model is suitable if you are interested in absolute effects. The log–log model, on the other hand, has a lower fit, but is often more meaningful economically because it can be interpreted in terms of elasticities: a 1% increase in budget is associated with a 0.67% increase in profit. Only problem is that it ignores negative numbers.
+Het level–level model heeft duidelijk de beste statistische fit. Dit model is geschikt als je geïnteresseerd bent in absolute effecten. Het log–log model daarentegen heeft een lagere fit, maar is economisch vaak zinvoller omdat het in elasticiteiten interpreteerbaar is: een 1% stijging in budget gaat samen met een 0,67% hogere winst.
 
 *step g*
 
@@ -220,8 +220,7 @@ ggplot(profits_by_month, aes(x=factor(release_month), y=meanrevenue))+
     title="Average revenue per month", 
     x="Release month",
     y="Average profit"
-  )+
-  theme_minimal()
+  )
 ```
 
 **Your Answer:**
@@ -239,6 +238,7 @@ movies$log_revenue<- log(movies$revenue)
 movies$log_budget<-log(movies$budget)
 
 movies<- movies[movies$profit>0&movies$budget >0,]
+0
 
 model<- lm(log_revenue~log_budget+english+release_month, data=movies)
 summary(model)
@@ -254,14 +254,12 @@ For each month later in the year, the revenue is 1.1% higher if the rest is cons
 
 ```{r}
 #WRITE YOUR CODE HERE
-model<- lm(log_revenue~log_budget + english+release_month, data=movies)
-summary(model)
+model<- lm(log_revenue~log_budget)
 ```
 
 **Your Answer:**
 
-If you look at the release month, the t value is 0.791 and the p value is 0.430.
-The p value is greater than 0.05, so we fail to reject the null hypothesus at the 5% significance level.
+Write your formulated response here.
 
 *step d*
 
