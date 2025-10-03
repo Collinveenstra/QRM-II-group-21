@@ -125,7 +125,7 @@ The level–level model fits the data better since it has a higher R^2:
 Level R^2 = 0.5961
 Log R^2 = 0.3201
 
-Het level–level model heeft duidelijk de beste statistische fit. Dit model is geschikt als je geïnteresseerd bent in absolute effecten. Het log–log model daarentegen heeft een lagere fit, maar is economisch vaak zinvoller omdat het in elasticiteiten interpreteerbaar is: een 1% stijging in budget gaat samen met een 0,67% hogere winst.
+The level–level model clearly has the best statistical fit. This model is suitable if you are interested in absolute effects. The log–log model, on the other hand, has a lower fit, but is often more meaningful economically because it can be interpreted in terms of elasticities: a 1% increase in budget is associated with a 0.67% increase in profit. Only problem is that it ignores negative numbers.
 
 *step g*
 
