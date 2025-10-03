@@ -237,14 +237,15 @@ The month of release matters. It is better to release the movie in months June o
 ```{r}
 #WRITE YOUR CODE HERE
 str(movies)
+movies$english <- ifelse(movies$original_language == "en", 1, 0)
 movies$english<- as.factor(movies$english)
 summary(movies)
-movies$log_revenue<- log(movies$revenue)
-movies$log_budget<-log(movies$budget)
+
+movies$LogRevenue <- ifelse(movies$revenue > 0, log(movies$revenue), NA)
 
 movies<- movies[movies$profit>0&movies$budget >0,]
 
-model<- lm(log_revenue~log_budget+english+release_month, data=movies)
+model<- lm(LogRevenue ~ LogBudget + english + release_month, data=movies)
 summary(model)
 ```
 
@@ -258,7 +259,7 @@ For each month later in the year, the revenue is 1.1% higher if the rest is cons
 
 ```{r}
 #WRITE YOUR CODE HERE
-model<- lm(log_revenue~log_budget + english+release_month, data=movies)
+model<- lm(LogRevenue~LogBudget + english+release_month, data=movies)
 summary(model)
 ```
 
