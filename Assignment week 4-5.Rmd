@@ -69,18 +69,31 @@ The estimated value of Beta 1 is 3.677. This means that each additional dollar s
 
 ```{r}
 #WRITE YOUR CODE HERE
+coefs <- summary(model)$coefficients
+t_val <- coefs["budget", "t value"]
 
+p_value <- pt(t_val, df = model$df.residual, lower.tail = FALSE)
+print(p_value)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+H0: B1 <= 0
+H1: B1 > 0
 
+Since the p-value is essentially 0 (2,1x10^-101), we reject the null hypothesis and conclude there is very strong evidence that B1 > 0.
+This means higher budgets are associated with significantly higher profits
 *step d*
 
 ```{r}
 #WRITE YOUR CODE HERE
+movies$profit <- movies$revenue - movies$budget
 
+movies$LogProfit <- ifelse(movies$profit > 0, log(movies$profit), NA)
+movies$LogBudget <- ifelse(movies$budget > 0, log(movies$budget), NA)
+
+model_log <- lm(LogProfit ~ LogBudget, data = movies)
+summary(model_log)
 ```
 
 **Your Answer:**
