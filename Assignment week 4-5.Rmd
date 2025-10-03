@@ -52,7 +52,7 @@ summary(model)
 
 **Your Answer:**
 
--1,76x10^7 + 3,547 x Budget. If a movie had a budget of 0, expected profits would be about -17,6 million dollars. For every 1 dollar increase in budget, expected profits rise by 3,55 dollar on average.
+-1,76x10^7 + 3,547xBudget. If a movie had a budget of 0, expected profits would be about -17,6 million euros. For every 1 euro increase in budget, expected profits rise by 3,55 euro on average.
 
 *step b*
 
@@ -63,38 +63,24 @@ summary(model)
 
 **Your Answer:**
 
-The estimated value of Beta 1 is 3.547. This means that each additional dollar spent on production, is an increase of 3.547 dollar in profits. 
+The estimated value of Beta 1 is 3.677. This means that each additional dollar spent on production, is an increase of 3.677 dollar in profits. 
 
 *step c*
 
 ```{r}
 #WRITE YOUR CODE HERE
-coefs <- summary(model)$coefficients
-t_val <- coefs["budget", "t value"]
 
-p_value <- pt(t_val, df = model$df.residual, lower.tail = FALSE)
-print(p_value)
 ```
 
 **Your Answer:**
 
-H0: B1 <= 0
-H1: B1 > 0
-
-Since the p-value is essentially 0 (2,1x10^-101), we reject the null hypothesis and conclude there is very strong evidence that B1 > 0.
-This means higher budgets are associated with significantly higher profits
+Write your formulated response here.
 
 *step d*
 
 ```{r}
 #WRITE YOUR CODE HERE
-movies$profit <- movies$revenue - movies$budget
 
-movies$LogProfit <- ifelse(movies$profit > 0, log(movies$profit), NA)
-movies$LogBudget <- ifelse(movies$budget > 0, log(movies$budget), NA)
-
-model_log <- lm(LogProfit ~ LogBudget, data = movies)
-summary(model_log)
 ```
 
 **Your Answer:**
