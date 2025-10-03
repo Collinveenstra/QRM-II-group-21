@@ -193,12 +193,22 @@ f. Estimate a model that is able to predict the revenue of this movie. Give its 
 
 ```{r}
 #WRITE YOUR CODE HERE
-
+profits_by_month<- movies %>% 
+  group_by(release_month) %>% 
+  summarise(meanrevenue=mean(revenue,na.rm=T))
+ggplot(profits_by_month, aes(x=factor(release_month), y=meanrevenue))+
+  geom_col(fill="blue")+
+  labs(
+    title="Average revenue per month", 
+    x="Release month",
+    y="Average profit"
+  )+
+  theme_minimal()
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+Month of release matters. It is better to release the movie in month 6 or 12, because those generated the most profit. Month 1 and 9 generated the least profit, so the movie should release in those months.
 
 *step b*
 
