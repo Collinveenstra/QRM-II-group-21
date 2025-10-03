@@ -136,7 +136,9 @@ The level–level model clearly has the best statistical fit. This model is suit
 
 **Your Answer:**
 
-Write your formulated response here.
+Chantal is correct in the sense that, at the margin, the studio currently gets back more than 1 dollar in profits for every extra dollar spent, because B1 is 3,547. The level–level model supports her argument directly.
+
+Bob has a point too: the log–log model shows diminishing returns, because B1 is 0.673. So Bob’s concern is not entirely unfounded. I would advise the studio to keep investing in production budgets but to be cautious with spending too much on very large projects, focusing instead on the range of budgets where returns are strongest.
 
 2
 
