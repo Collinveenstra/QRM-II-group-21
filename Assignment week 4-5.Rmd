@@ -214,12 +214,23 @@ Month of release matters. It is better to release the movie in month 6 or 12, be
 
 ```{r}
 #WRITE YOUR CODE HERE
+str(movies)
+movies$english<- as.factor(movies$english)
+summary(movies)
+movies$log_revenue<- log(movies$revenue)
+movies$log_budget<-log(movies$budget)
 
+movies<- movies[movies$profit>0&movies$budget >0,]
+
+model<- lm(log_revenue~log_budget+english+release_month, data=movies)
+summary(model)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+An increase of 1% in budget, increases the revenue with 0.75%.
+English films have an estimated 35% lower revenue than not English films.
+For each month later in the year, the revenue is 1.1% higher if the rest is constant.
 
 *step c*
 
