@@ -136,10 +136,11 @@ Het level–level model heeft duidelijk de beste statistische fit. Dit model is 
 
 **Your Answer:**
 
-Write your formulated response here.
+Chantal is correct in the sense that, at the margin, the studio currently gets back more than 1 dollar in profits for every extra dollar spent, because B1 is 3,547. The level–level model supports her argument directly.
+
+Bob has a point too: the log–log model shows diminishing returns, because B1 is 0.673. So Bob’s concern is not entirely unfounded. I would advise the studio to keep investing in production budgets but to be cautious with spending too much on very large projects, focusing instead on the range of budgets where returns are strongest.
 
 2
-
 a. Make a plot with a 95% confidence interval with the mean log of budget on the y-axis, and whether the first actor of the movie is male or female on the x-axis. What do you conclude? \textbf{[2 points]} 
 b. Estimate the following simple OLS model: $log(budget)_i=\beta_0+\beta_1 \text(FirstActorMale)_i + \varepsilon_i.$ Is the estimated coefficient for $\beta_1$ significantly different from zero? How do you interpret its estimate, and how does this relate to your conclusion in 2a? \textbf{[2 points]}
 c. Now, have a close look at your data frame. Can you find any instances of male first actors who are wrongly labeled as being female, or vice versa? What would such mislabelling mean for the coefficient you estimated under 2b? \textbf{[2 points]}
@@ -198,7 +199,7 @@ We have detected some wrongly labeled actors. Some examples are: Cameron Diaz, J
 a. Create a plot of the mean profits by month of release. Do you see any indication that month of release matters to the profits of the movie? \textbf{[2 points]}
 b. Estimate an OLS model which has as dependent variable the log of profits of a movie, and as independent variable the log of budget, a dummy for whether the movie was released in english or not, and a linear term for the month of release. Show a summary of the resulting model and interpret each coefficient. \textbf{[4 points]}
 c. Test for the hypothesis that the coefficient that belongs to month of release is zero. \textbf{[2 points]} 
-d. Based on your plot in a.) do you consider the choice that month of release enters the model linearly under b.) reasonable? Estimate a specification that allows for a more flexible curve. In this new specification, test for the null hypothesis that month of release does not impact profits. This might require testing multiple terms at once. \textbf{[4 points]}
+  d. Based on your plot in a.) do you consider the choice that month of release enters the model linearly under b.) reasonable? Estimate a specification that allows for a more flexible curve. In this new specification, test for the null hypothesis that month of release does not impact profits. This might require testing multiple terms at once. \textbf{[4 points]}
 
 e. One executive at the studio wants to time the release of the movie to a specific month of the year such that they can maximize revenue. Based on your model under d.), What would you advise the movie studio regarding the timing of the release of the movie?  \textbf{[2 points]}
 
@@ -211,6 +212,8 @@ f. Estimate a model that is able to predict the revenue of this movie. Give its 
 
 ```{r}
 #WRITE YOUR CODE HERE
+library(tidyverse)
+
 profits_by_month<- movies %>% 
   group_by(release_month) %>% 
   summarise(meanrevenue=mean(revenue,na.rm=T))
@@ -225,29 +228,31 @@ ggplot(profits_by_month, aes(x=factor(release_month), y=meanrevenue))+
 
 **Your Answer:**
 
-Month of release matters. It is better to release the movie in month 6 or 12, because those generated the most profit. Month 1 and 9 generated the least profit, so the movie should release in those months.
+The month of release matters. It is better to release the movie in months June or December, because those generated the most profit. January and September generated the least profit, so the movie should not release in those months.
 
 *step b*
 
 ```{r}
 #WRITE YOUR CODE HERE
-str(movies)
+movies$english <- ifelse(movies$original_language == "en", 1, 0)
 movies$english<- as.factor(movies$english)
 summary(movies)
-movies$log_revenue<- log(movies$revenue)
-movies$log_budget<-log(movies$budget)
+
+movies$LogRevenue <- ifelse(movies$revenue > 0, log(movies$revenue), NA)
 
 movies<- movies[movies$profit>0&movies$budget >0,]
 0
 
-model<- lm(log_revenue~log_budget+english+release_month, data=movies)
+model<- lm(LogRevenue ~ LogBudget + english + release_month, data=movies)
 summary(model)
 ```
 
 **Your Answer:**
 
-An increase of 1% in budget, increases the revenue with 0.75%.
-English films have an estimated 35% lower revenue than not English films.
+LogRevenue = 5,75592 + 0,749 x LogBudget - 0,349 x English + 0.01 x Release Month
+
+An increase of 1% in budget, increases the revenue with 0.749%.
+English movies have an estimated 34,9% lower revenue than non-English movies.
 For each month later in the year, the revenue is 1.1% higher if the rest is constant.
 
 *step c*
@@ -255,22 +260,40 @@ For each month later in the year, the revenue is 1.1% higher if the rest is cons
 ```{r}
 #WRITE YOUR CODE HERE
 model<- lm(log_revenue~log_budget)
+
+model<- lm(LogRevenue~LogBudget + english+release_month, data=movies)
+summary(model)
 ```
 
 **Your Answer:**
+H0: B3 = 0
+H1: B3 ≠ 0
 
 Write your formulated response here.
+If you look at the release month, the t value is 0.791 and the p value is 0.430.
+The p value is much larger than 0.05, so we fail to reject the null hypothesus at the 5% significance level. Thus, there is no statistically significant evidence that the release month affects movie revenues, keeping other variables constant.
 
 *step d*
 
 ```{r}
 #WRITE YOUR CODE HERE
 
+model_flex <- lm(LogRevenue ~ LogBudget + english + as.factor(release_month), data = movies)
+summary(model_flex)
+
+anova(model, model_flex)
 ```
 
 **Your Answer:**
 
-Write your formulated response here.
+There are strong seasonal peaks, which causes a non-linear relationship. Therefore a simple linear trend of: later month leads to higher profits, is incorrect. So the assumption in part b that month enters linearly is not reasonable.
+
+In the new model the reference category is January (month 1). All other coefficients are differences in log revenue relative to January, holding budget and language constant.
+
+The hypothesis test gives:
+F = 1,84    p-value = 0.055
+
+Since the p-value is just above 0.05, we fail to reject the null at the 5% level. This means we cannot conclude that release month has a statistically significant effect on revenues. However, at the 10% level, we would reject the null, suggesting weak evidence that release month might matter. Overall, the evidence for a month effect is marginal, but not strong.
 
 *step e*
 
@@ -281,13 +304,24 @@ Write your formulated response here.
 
 **Your Answer:**
 
-Write your formulated response here.
+The joint test (p = 0.055) provides only weak evidence that release month matters. Most months show coefficients close to zero with large p-values, suggesting no effect. Only August and September display relatively large negative coefficients and marginal significance (around 10% interval), hinting at lower revenues in late summer. The studio should not rely on month-timing to boost revenues, although they may want to be cautious about late-summer releases (August/September).
 
 *step f*
-
 
 ```{r}
 #WRITE YOUR CODE HERE
 
-```
+new_movie <- data.frame(
+  LogBudget = log(40000000),
+  english = factor(1, levels = levels(movies$english)),
+  release_month = factor(1, levels = 1:12)
+)
 
+prediction <- predict(model_flex, newdata = new_movie,
+                interval = "prediction", level = 0.99)
+
+exp(prediction)
+```
+**Your Answer:**
+
+The predicted revenue is about 130 million dollar. The 99% prediction interval is very wide reaching from about 18 million dollar up to 943 million dollar.
