@@ -110,7 +110,7 @@ LogProfit = 6,12 + 0.67 x LogBudget.
 
 **Your Answer:**
 
-Write your formulated response here.
+The estimated value of Beta 1 is 0,67348. Since this is a log-log model, a 1% increase in budget is associated with an estimated 0,673% increase in profits, on average.
 
 *step f*
 
