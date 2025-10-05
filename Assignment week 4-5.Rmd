@@ -136,7 +136,7 @@ movies$log_budget <- log(movies$budget)
 ggplot(movies, aes(x = first_actor_gender, y = log_budget)) +
   stat_summary(fun = mean, geom = "point", size = 3) +
   stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +
-  labs(x = "Gender of First Actor", y = "Log of Budget",
+  labs(x = "Gender of First Actor", y = "Mean Log of Budget",
        title = "Mean Log of Budget by First Actor Gender with 95% Confidence Interval")
 ```
 
@@ -158,18 +158,13 @@ print(percent_effect)
 
 **Your Answer:**
 
-The estimated coefficient for β1 is 0.3232 with a p-value of 0.194, so it is not significantly different from zero. This is because 0.194 > 0.05. This means we cannot conclude that movies with a male first actor have different budgets than those with a female first actor. The positive estimate would suggest about a 38% higher budget for male leads, but since it’s not significant, this difference is not reliable. This matches your conclusion in 2a: There is no significant difference in mean log-budgets between male and female first actors.
+The estimated coefficient for β1 is 0.3232 with a p-value of 0.194, so it is not significantly different from zero. This is because 0.194 > 0.05. This means we cannot conclude that movies with a male first actor have different budgets than those with a female first actor. The positive estimate would suggest about a 38% higher budget for male leads, but since it’s not significant, this difference is not reliable. This matches our conclusion in 2a: There is no significant difference in mean log-budgets between male and female first actors.
 
 *step c*
 
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
 **Your Answer:**
 
-We have detected some wrongly labeled actors. Some examples are: Cameron Diaz, Jackie Chan and Blake Lively. Because some actors are wrongly labeled as male or female, the data contains errors. This makes the estimated coefficient for β1 smaller than it should be, pushing it closer to zero. As a result, any real difference in budgets between male and female leads becomes harder to see.
+We have detected some wrongly labeled actors. Some examples are: Cameron Diaz, Jackie Chan and Blake Lively. Because some actors are wrongly labeled as male or female, the data contains errors. This makes the estimated coefficient for β1 biased towards zero. The true effect of actor gender would be underestimated because mislabelling makes the variable noisier. As a result, any real difference in budgets between male and female leads becomes harder to see.
 
 # Week 5
 
