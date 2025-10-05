@@ -211,6 +211,9 @@ movies$english<- as.factor(movies$english)
 
 model_5b<- lm(LogProfit ~ LogBudget + english + release_month, data=movies)
 summary(model_5b)
+
+percentage_effect <- (exp(-0.66377)-1)*100
+percentage_effect
 ```
 
 **Your Answer:**
@@ -218,7 +221,7 @@ summary(model_5b)
 LogProfit = 6,531 + 0,681 x LogBudget - 0,664 x English + 0.015 x Release Month
 
 An increase of 1% in budget, increases the revenue with 0.681%.
-English movies have an estimated (100*(e^-0,664)-1) 50,5% lower revenue than non-English movies.
+English movies have an estimated 48,51% lower revenue than non-English movies.
 For each month later in the year, the revenue is 1.5% higher if the rest is constant.
 
 *step c*
