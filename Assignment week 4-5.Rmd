@@ -149,7 +149,7 @@ c. Now, have a close look at your data frame. Can you find any instances of male
 
 ```{r}
 #WRITE YOUR CODE HERE
-install.packages("Hmisc")
+install.packages("Hmisc", repos = "https://cloud.r-project.org")
 library (tidyverse)
 library (Hmisc)
 
