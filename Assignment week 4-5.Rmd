@@ -284,4 +284,4 @@ exp(prediction)
 
 **Your Answer:**
 
-The predicted revenue is about 77,7 million dollar. The 99% prediction interval is very wide reaching from about 1,71 million dollar up to 3,54 billion dollar. This wide interval shows the high uncertainty in movie success: while the model predicts a healthy profit, outcomes could range from a flop to an extreme blockbuster
+The predicted revenue is about 77,75 million dollar. The 99% prediction interval is very wide reaching from about 1,71 million dollar up to 3,54 billion dollar. This wide interval shows the high uncertainty in movie success: while the model predicts a healthy profit, outcomes could range from a flop to an extreme blockbuster
