@@ -1,5 +1,4 @@
 ---
----
 title: "QRM II Graded Assignment (2), Period 1 2025"
 subtitle: "Material by Sjoerd van Alten and Klervie Toczé"
 author: "Fill in your group number and names here"
@@ -44,26 +43,22 @@ g. Who do you think is correct? Bob or Chantal? What would you advise the movie 
 ```{r}
 #WRITE YOUR CODE HERE
 movies <- read.table("movies1.tsv", header=TRUE)
+movies$profit <- movies$revenue - movies$budget
 
-model <- lm(revenue ~ budget, data = movies)
+model <- lm(profit ~ budget, data = movies)
 summary(model)
 
 ```
 
 **Your Answer:**
 
-Profit = -1,76x10^7 + 3,547 x Budget. If a movie had a budget of 0, expected profits would be about -17,6 million euros. For every 1 euro increase in budget, expected profits rise by 3,55 euro on average.
+Profit = -1,76x10^7 + 3,547 x Budget. If a movie had a budget of 0, expected profits would be about -17,6 million euros. For every 1 euro increase in budget, expected profits rises by 2,55 euro on average.
 
 *step b*
 
-```{r}
-#WRITE YOUR CODE HERE
-summary(model)
-```
-
 **Your Answer:**
 
-The estimated value of Beta 1 is 3.547. This means that each additional dollar spent on production, is an increase of 3.547 dollar in profits. 
+The estimated value of Beta 1 is 2.547. This means that each additional dollar spent on production, is an increase of 2.547 dollar in profits. 
 
 *step c*
 
@@ -72,24 +67,21 @@ The estimated value of Beta 1 is 3.547. This means that each additional dollar s
 coefs <- summary(model)$coefficients
 t_val <- coefs["budget", "t value"]
 
-p_value <- pt(t_val, df = model$df.residual, lower.tail = FALSE)
+p_value <- pt(t_val, df = model$df.residual, lower.tail = TRUE)
 print(p_value)
 ```
 
 **Your Answer:**
 
-H0: B1 <= 0
-H1: B1 > 0
+H0: B1 >= 0
+H1: B1 < 0
 
-Since the p-value is essentially 0 (2,1x10^-101), we reject the null hypothesis and conclude there is very strong evidence that B1 > 0.
-This means higher budgets are associated with significantly higher profits
+Since the p-value is 1, we fail to reject the null hypothesis and conclude there is very strong evidence that B1 >= 0 at any usual a. There is no evidence that the slope is negative. The data strongly suggest that the slope is positive: higher budgets are associated with higher profits.
 
 *step d*
 
 ```{r}
 #WRITE YOUR CODE HERE
-movies$profit <- movies$revenue - movies$budget
-
 movies$LogProfit <- ifelse(movies$profit > 0, log(movies$profit), NA)
 movies$LogBudget <- ifelse(movies$budget > 0, log(movies$budget), NA)
 
@@ -99,25 +91,15 @@ summary(model_log)
 
 **Your Answer:**
 
-LogProfit = 6,12 + 0.67 x LogBudget. 
+LogProfit = 6,12 + 0.67 x LogBudget. When LogBudget is 0, expected profits are about 6.12 
 
 *step e*
 
-```{r}
-#WRITE YOUR CODE HERE
-
-```
-
 **Your Answer:**
 
-The estimated value of Beta 1 is 0,67348. Since this is a log-log model, a 1% increase in budget is associated with an estimated 0,673% increase in profits, on average.
+The estimated value of Beta 1 is 0,67348. Since this is a log-log model, a 1% increase in budget is associated with an estimated 0,673% increase in profits, on average. This indicates that there are diminishing marginal returns on budget.
 
 *step f*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
 
 **Your Answer:**
 
@@ -125,14 +107,9 @@ The level–level model fits the data better since it has a higher R^2:
 Level R^2 = 0.5961
 Log R^2 = 0.3201
 
-Het level–level model heeft duidelijk de beste statistische fit. Dit model is geschikt als je geïnteresseerd bent in absolute effecten. Het log–log model daarentegen heeft een lagere fit, maar is economisch vaak zinvoller omdat het in elasticiteiten interpreteerbaar is: een 1% stijging in budget gaat samen met een 0,67% hogere winst.
+The level–level model clearly has the best statistical fit. This model is suitable if you are interested in absolute effects. The log–log model, on the other hand, has a lower fit, but is often more meaningful economically because it can be interpreted in terms of elasticities: a 1% increase in budget is associated with a 0.67% increase in profit.
 
 *step g*
-
-```{r}
-#WRITE YOUR CODE HERE
-
-```
 
 **Your Answer:**
 
